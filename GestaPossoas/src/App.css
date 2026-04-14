@@ -1,0 +1,7 @@
+/* Estilos customizados complementares ao Tailwind CSS */
+/* O Tailwind gerencia a maioria dos estilos base */
+
+
+svg {
+  display: inline-block;
+}

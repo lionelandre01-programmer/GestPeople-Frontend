@@ -1,0 +1,139 @@
+import api from './api'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import { AuthProvider, useAuth } from './context/AuthContext'
+import './App.css'
+import Header from './components/Header'
+import Index from './pages/Index'
+import Footer from './components/Footer'
+import Cadastro from './pages/Cadastro'
+import DepCadastro from './pages/DepCadastro'
+import Login from './pages/Login'
+import Profile from './pages/Profile'
+import Lista from './pages/Lista'
+import UpdateUser from './pages/UpdateUser'
+import DashBoard from './pages/DashBoard'
+
+
+
+function Main(){
+  return (
+    
+    <>
+      <Header />
+        <main>
+          <Index />
+        </main>
+      <Footer />
+    </>
+
+  );
+}
+
+function App() {
+
+  const navegate = useNavigate();
+  const { setUser, setToken, login } = useAuth();
+
+  async function criarDepartamento(data){
+
+    try {
+      const response = await api.post('/departamento/create', data);
+      console.log('Departamento criado com sucesso:', response.data);
+    } catch (error) {
+      console.error('Erro ao criar departamento:', error);
+    }
+  }
+
+  async function cadastrarUser(dados){
+
+    try{
+      const response = await api.post('/user/create', dados);
+      console.log('Usuário Cadastrado Com Sucesso: ', response.data);
+
+    } catch (error) {
+
+      console.log('Erro ao cadastrar usuário: ', error.response.data);
+    }
+  }
+
+  async function fazerLogin(dados){
+
+    try{
+
+      const response = await api.post('/login', dados);
+
+      if (response.data.user && response.data.token) {
+      
+        console.log("Login Realizado Com Sucesso!");
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        login();
+        navegate("/");
+
+      }else{
+
+        console.log('Resposta inesperada do servidor: ', response.data);
+      }
+
+    } catch (error) {
+
+      console.log('Erro ao fazer login: ', error.response?.data || error.message);
+    }
+  }
+
+  async function fazerLogout() {
+    
+    try{
+
+      const response = await api.post('/logout');
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      setUser(null);
+      setToken(null);
+      console.log('Logout realizado com sucesso: ', response.data);
+      // Redirect to login or home
+      window.location.href = '/';
+
+    } catch (error){
+
+      console.log('Erro ao fazer logout: ',error.response.data);
+    }
+  }
+
+  async function updateUser(data) {
+    try {
+      const response = await api.post('http://127.0.0.1:8000/api/user/update', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log('Usuário atualizado com sucesso:', response.data.user);
+      
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      setUser(response.data.user);
+      navegate("/profile");
+    } catch (error) {
+      console.error('Erro ao atualizar usuário:', error);
+    }
+  }
+
+  return (
+    
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path='/login' element={<Login onSubmit={fazerLogin}/>} />
+        <Route path="/cadastro" element={<Cadastro onSubmit={cadastrarUser}/>} />
+        <Route path="/departamento/cadastro" element={<DepCadastro onSubmit={criarDepartamento}/>} />
+        <Route path="/profile" element={<Profile onSubmit={fazerLogout}/>} />
+        <Route path="/update-user" element={<UpdateUser onSubmit={updateUser}/>} />
+        <Route path="/lista" element={<Lista />} />
+        <Route path="/dashboard" element={<DashBoard />} />
+      </Routes>
+    </AuthProvider>
+    
+  );
+  
+}
+
+export default App
