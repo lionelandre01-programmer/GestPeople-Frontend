@@ -26,7 +26,7 @@ Antes de começar, certifique-se de ter instalado:
 1. Clone este repositório:
    ```bash
    git clone https://github.com/lionelandre01-programmer/GestPeople-Frontend.git
-   cd gestpeople-frontend
+   cd GestPeople-Frontend
    ```
 
 2. Instale as dependências:
@@ -101,4 +101,4 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## Contato
 
-Para dúvidas ou sugestões, entre em contato com [seu-email@example.com].
+Para dúvidas ou sugestões, entre em contato com [lionelgomes@084gmail.com].
