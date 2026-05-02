@@ -1,6 +1,7 @@
 import api from './api'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { useState } from 'react'
 import './App.css'
 import Header from './components/Header'
 import Index from './pages/Index'
@@ -12,6 +13,14 @@ import Profile from './pages/Profile'
 import Lista from './pages/Lista'
 import UpdateUser from './pages/UpdateUser'
 import DashBoard from './pages/DashBoard'
+import Departamentos from './pages/Departamentos'
+import Desempenho from './pages/Desempenho'
+import EachDepartamento from './pages/EachDepartamento'
+import Funcao from './pages/Funcao'
+import FunCadastro from './pages/FunCadastro'
+import Presencas from './pages/Presencas'
+import PresencaInform from './pages/PresencaInform'
+import PresencasRegist from './pages/PresencasRegist'
 
 
 
@@ -33,12 +42,14 @@ function App() {
 
   const navegate = useNavigate();
   const { setUser, setToken, login } = useAuth();
+  const [reload, setReload] = useState(false);
 
   async function criarDepartamento(data){
 
     try {
       const response = await api.post('/departamento/create', data);
       console.log('Departamento criado com sucesso:', response.data);
+      navegate("/departamentos");
     } catch (error) {
       console.error('Erro ao criar departamento:', error);
     }
@@ -49,6 +60,7 @@ function App() {
     try{
       const response = await api.post('/user/create', dados);
       console.log('Usuário Cadastrado Com Sucesso: ', response.data);
+      navegate("/");
 
     } catch (error) {
 
@@ -117,6 +129,37 @@ function App() {
     }
   }
 
+  async function createFun(dados) {
+
+    try{
+
+      const response = await api.post('/funcao/create', dados);
+      console.log('Sucesso: ',response.data);
+      navegate("/funcoes");
+    
+    }catch(error){
+
+      console.log('Erro ao cadastrar função: ',error.response.data);
+
+    }
+
+  }
+
+  async function changeDesempenho(dados)
+  {
+    try{
+
+      const response = await api.post('/desempenho/create', dados);
+      console.log('Secesso: ',response.data);
+      setReload(prev => !prev);
+
+    }catch(error){
+
+      console.log('Erro ao cadastrar desempenho: ',error.response.data);
+
+    }
+  }
+
   return (
     
     <AuthProvider>
@@ -129,6 +172,14 @@ function App() {
         <Route path="/update-user" element={<UpdateUser onSubmit={updateUser}/>} />
         <Route path="/lista" element={<Lista />} />
         <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/departamentos" element={<Departamentos />} />
+        <Route path="/desempenhos" element={<Desempenho onSubmit={changeDesempenho} reload={reload}/>} />
+        <Route path="/eachDep/:id" element={<EachDepartamento onSubmit={changeDesempenho} reload={reload}/>} />
+        <Route path="/funcoes" element={<Funcao />} />
+        <Route path="/presencas" element={<Presencas />} />
+        <Route path="/presencas/information/:id" element={<PresencaInform />} />
+        <Route path="/presencas/register" element={<PresencasRegist />} />
+        <Route path="/funcoes/create" element={<FunCadastro onSubmit={createFun} />} />
       </Routes>
     </AuthProvider>
     

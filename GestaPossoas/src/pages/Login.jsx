@@ -24,7 +24,7 @@ export default function Login(props){
     return (
         <div className="h-dvh w-full flex flex-col items-center">
 
-            <Back />
+            <Back back="/"/>
 
             <h2 className="text-center text-2xl text-blue-500 font-bold">FAZER LOGIN</h2>
 

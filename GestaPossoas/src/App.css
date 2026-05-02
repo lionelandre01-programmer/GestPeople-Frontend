@@ -5,3 +5,79 @@
 svg {
   display: inline-block;
 }
+
+#menu{
+  display: none;
+}
+
+#menu.ativo{
+  display: block;
+  position: absolute;
+  height: 80vh;
+  width: 40%;
+  right: 0;
+  top: 19vh;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: rgba(240, 248, 255, 0.726);
+}
+
+nav div ul li{
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 0.5rem;
+}
+
+nav div button{
+  position: absolute;
+  border: 1px solid white;
+  border-radius: 0.5rem;
+  top: 5vh;
+  right: 13vw;
+  padding: 0.2rem 2.5rem;
+  background-color: rgba(1, 132, 247, 0.418);
+  font-size: 2rem;
+}
+
+main{
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+progress::-webkit-progress-bar{
+  background-color: aliceblue;
+  border: 1px solid rgb(0, 183, 255);
+  border-radius: 3px;
+}
+
+#progressGood::-webkit-progress-value{
+  background-color: rgb(0, 255, 255);
+}
+
+#progressNormal::-webkit-progress-value{
+  background-color: green;
+}
+
+#progressBad::-webkit-progress-value{
+  background-color: red;
+}
+
+#progressExcellent::-webkit-progress-value{
+  background-color: rgb(0, 119, 255);
+}
+
+#just{
+  color: rgb(0, 132, 255);
+}
+
+#notJust{
+  color: red;
+}

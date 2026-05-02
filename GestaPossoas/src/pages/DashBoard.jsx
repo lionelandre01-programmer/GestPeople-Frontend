@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../api';
+import Loading from '../components/Loading';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { FaUsers, FaBuilding, FaBriefcase, FaStar, FaUserTie, FaBan, FaCheckCircle } from 'react-icons/fa';
@@ -12,7 +13,7 @@ export default function DashBoard() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!token) {
+    if (!localStorage.getItem('token')) {
       window.location.href = '/login';
       return;
     }
@@ -20,7 +21,7 @@ export default function DashBoard() {
     const fetchStats = async () => {
       try {
 
-        const [departmentsRes, rolesRes, bestEmployeesRes, managersRes, suspendedRes, activeRes] = await Promise.all([
+        const [departmentsRes, rolesRes, bestEmployee, managersRes, suspendedRes, activeRes] = await Promise.all([
           api.get('/departamento/users/count'), // { total: 5, members: { dep1: 10, dep2: 15 } }
           api.get('/funcao/users/count'), // { role1: 20, role2: 30 }
           api.get('/user/bests'), // [{ name: 'João Silva', score: 95 }]
@@ -29,10 +30,12 @@ export default function DashBoard() {
           api.get('/user/active/count'), // { count: 100 }
         ]);
 
+        console.log(bestEmployee.data);
+
         setStats({
           departments: departmentsRes.data,
           roles: rolesRes.data,
-          bestEmployees: bestEmployeesRes.data,
+          bestEmployee: bestEmployee.data,
           managers: managersRes.data.count,
           suspended: suspendedRes.data.count,
           active: activeRes.data.count,
@@ -48,17 +51,7 @@ export default function DashBoard() {
     fetchStats();
   }, [token]);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-grow flex items-center justify-center">
-          <p className="text-xl">Carregando dashboard...</p>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
+  if (loading) return <Loading />;
 
   if (error) {
     return (
@@ -127,15 +120,11 @@ export default function DashBoard() {
               </ul>
             </div>
 
-            {/* Melhores Funcionários */}
+            {/* Melhor Funcionário */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <FaStar className="text-yellow-500 text-3xl mb-4" />
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Melhores Funcionários</h3>
-              <ul className="text-sm">
-                {stats.bestEmployees?.slice(0, 5).map((emp, index) => (
-                  <li key={index}>{emp.name} - {emp.score}%</li>
-                ))}
-              </ul>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Melhor Funcionário</h3>
+              <p className="text-yellow-500 font-bold">{stats.bestEmployee.user.first_name} {stats.bestEmployee.user.last_name} - {stats.bestEmployee?.nivel}%</p>
             </div>
           </div>
 
@@ -145,7 +134,7 @@ export default function DashBoard() {
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Membros por Departamento</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {Object.entries(stats.departments?.members || {}).map(([dep, count]) => (
-                <div key={dep} className="flex justify-between">
+                <div key={dep} className="flex justify-between border-b border-b-blue-400 px-4">
                   <span>{dep}</span>
                   <span className="font-bold">{count}</span>
                 </div>

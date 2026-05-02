@@ -103,7 +103,7 @@ export default function Cadastro(props) {
     return (
         <div className="h-dvh w-full flex flex-col items-center justify-center">
 
-            <Back />
+            <Back back="/"/>
 
             {aviso ? 
                 (<div 
@@ -197,7 +197,7 @@ export default function Cadastro(props) {
                         <select className="w-full h-7/12 rounded-lg border border-gray-300 px-4 font-normal font-sans" id="departamento">
 
                             {departamento.map(dep => ( 
-                                <option value={dep.id}>{dep.denominacao}</option>
+                                <option key={dep.id} value={dep.id}>{dep.denominacao}</option>
                             ))}
 
                         </select>
@@ -209,7 +209,7 @@ export default function Cadastro(props) {
                         <select className="w-full h-7/12 rounded-lg border border-gray-300 px-4 font-normal font-sans" id="funcao">
 
                             {funcao.map(f => (
-                                <option value={f.id}>{f.denominacao}</option>
+                                <option key={f.id} value={f.id}>{f.denominacao}</option>
                             ))}
 
                         </select>

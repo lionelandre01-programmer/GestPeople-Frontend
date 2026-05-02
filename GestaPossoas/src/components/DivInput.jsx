@@ -8,7 +8,7 @@ export default function DivInput(props) {
         id={props.label}
         className={props.classNameInput}
         placeholder={props.placeholder}
-        onChange={props.onChange} // importante se for input controlado
+        onChange={props.onChange}
       />
     </div>
   );

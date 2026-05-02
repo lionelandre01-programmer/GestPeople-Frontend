@@ -148,21 +148,29 @@ export default function UpdateUser(props) {
                 onChange={(e) => setNascimento(e.target.value)}
               />
               
-                <select onChange={(e) => setDepartamentoId(e.target.value)} className="w-full h-10 rounded-lg border border-gray-300 px-4">
+              <div>
+                <label htmlFor="dep">Departamento</label>
+                <select id='dep' onChange={(e) => setDepartamentoId(e.target.value)} className="w-full h-10 rounded-lg border border-gray-300 px-4">
                     {departamentos.map(d => (
                         <option key={d.id} value={d.id}>
                         {d.denominacao}
                         </option>
                     ))}
                 </select>
+              </div>
+                
               
-              <select onChange={(e) => setFuncaoId(e.target.value)} className="w-full h-10 rounded-lg border border-gray-300 px-4">
+              <div>
+                <label htmlFor="fun">Cargo</label>
+                <select id='fun' onChange={(e) => setFuncaoId(e.target.value)} className="w-full h-10 rounded-lg border border-gray-300 px-4">
                     {funcoes.map(f => (
                         <option key={f.id} value={f.id}>
                         {f.denominacao}
                         </option>
                     ))}
                 </select>
+              </div>
+              
               
               <div className="w-full">
                 <label htmlFor="photo">Foto do Perfil</label>
@@ -174,7 +182,7 @@ export default function UpdateUser(props) {
                   onChange={(e) => setPhoto(e.target.files[0])}
                 />
                 {user?.image && (
-                  <img src={`/images/Perfil/${user.image}`} alt="Foto atual" className="mt-2 w-20 h-20 rounded-full" />
+                  <img src={`http://127.0.0.1:8000/storage/${user.image}`} alt="Foto atual" className="mt-2 w-20 h-20 rounded-full" />
                 )}
               </div>
             </div>
