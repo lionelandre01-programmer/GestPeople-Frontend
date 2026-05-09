@@ -62,7 +62,12 @@ export default function PresencaInform(){
                 
                         <p>Nome: <span className="text-gray-500">{user.first_name} {user.last_name}</span></p>
                         <p>Morada: <span className="text-gray-500">{user.morada}</span></p>
-                        <p>Efectividade: <span className="text-gray-500">{user.efectividade}</span></p>
+                        <p>Situação: {user.ult_suspensao ? 
+                            (<>
+                            {user.ult_suspensao.efectivo && user.ult_suspensao.suspenso ? (<span className="text-amber-600">Suspenso</span>) 
+                            : user.ult_suspensao.efectivo && !user.ult_suspensao.suspenso ? (<span className="text-gray-500">Efectivo</span>) 
+                            : (<span className="text-red-600">Demitido</span>)}
+                            </>) : ("Processando...")}</p>
                         <p>Contratado em: <span className="text-gray-500">{ format(new Date(user.created_at), 'dd/MM/yyyy', { locale: pt }) }</span></p>
                 
                     </div>
@@ -74,13 +79,13 @@ export default function PresencaInform(){
                     
                 <div className="flex-2 flex w-full items-center justify-center font-bold py-2">
                     <div className="flex-1 h-full text-center">
-                        <p>Faltas: <span>{user.presenca.filter(p => p.presente === 0).length}</span></p>
-                        <p>Presenças: <span>{user.presenca.filter(p => p.presente === 1).length}</span></p>
+                        <p>Faltas: <span>{user.presenca.filter(p => p.status === 'ausente').length}</span></p>
+                        <p>Presenças: <span>{user.presenca.filter(p => p.status === 'presente').length}</span></p>
                     </div>
 
                     <div className="flex-1 h-full text-center">
-                        <p>Justificadas: <span>{user.presenca.filter(p => p.justificada === 1 && p.presente === 0).length}</span></p>
-                        <p>N/Justificadas: <span>{user.presenca.filter(p => p.justificada === 0 && p.presente === 0).length}</span></p>
+                        <p>Justificadas: <span>{user.presenca.filter(p => p.justificada === 1 && p.status === 'ausente').length}</span></p>
+                        <p>N/Justificadas: <span>{user.presenca.filter(p => p.justificada === 0 && p.status === 'ausente').length}</span></p>
                     </div>
                 </div>
                 <div className="h-50 w-full flex flex-col overflow-y-scroll" >

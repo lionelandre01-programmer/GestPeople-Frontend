@@ -5,6 +5,7 @@ import Back from "../components/Back";
 import DivInputSubmit from "../components/DivInputSubmit";
 import DivSelect from "../components/DivSelect";
 import Loading from "../components/Loading";
+import Alert from "../components/Alert";
 
 export default function Cadastro(props) {
 
@@ -14,6 +15,7 @@ export default function Cadastro(props) {
     const [morada, setMorada] = useState('');
     const [dataNascimento, setDataNascimento] = useState('2000-01-01');
     const [email, setEmail] = useState('');
+    const [sexo, setSexo] = useState('');
     const [passWord, setPassWord] = useState('');
     const [passWordConf, setPassWordConf] = useState('');
     const [departamento, setDepartamento] = useState('');
@@ -32,6 +34,7 @@ export default function Cadastro(props) {
             
             setDepartamento( response.data);
             setFuncao(resp.data);
+            console.log(resp.data);
 
             } catch(erro) {
 
@@ -53,23 +56,18 @@ export default function Cadastro(props) {
 
         e.preventDefault();
 
-        const password = document.getElementById('passwordConf');
+        if (passWord === passWordConf ){
 
-        if (password.value === passWord ){
-
-            const sexo = document.getElementById('sexo');
-            const depart = document.getElementById('departamento');
-            const fun = document.getElementById('funcao');
             
             const dados = {
             first_name: firstName,
             last_name: lastName,
             phone: phone,
-            genero: sexo.value,
+            genero: sexo,
             morada: morada,
             nascimento: dataNascimento,
-            departamento_id: depart.value,
-            funcao_id: fun.value,
+            departamento_id: departamento,
+            funcao_id: funcao,
             email: email,
             password: passWord
             }
@@ -103,14 +101,9 @@ export default function Cadastro(props) {
     return (
         <div className="h-dvh w-full flex flex-col items-center justify-center">
 
-            <Back back="/"/>
+            <Back back="/lista"/>
 
-            {aviso ? 
-                (<div 
-                className="w-11/12 h-2/16 absolute mb-98 z-0 flex items-center justify-center text-red-500 text-2xl bg-red-100 border border-black rounded-2xl">{aviso}</div>) 
-                : 
-                (<></>)
-            }
+            {aviso ? (<Alert aviso={aviso}/>) : ("")}
 
             <h2 className="text-center text-2xl text-blue-500 font-bold">CADASTRO DE USUÁRIO</h2>
             <form className="w-11/12 h-10/12 flex border rounded-2xl mb-2" onSubmit={getDados}>
@@ -155,7 +148,8 @@ export default function Cadastro(props) {
                     label="sexo"
                     labelText="Seu Gênero" 
                     options={['Indefinido','Masculino', 'Feminino']}
-                    classNameInput="w-full h-7/12 rounded-lg border border-gray-300 px-4 font-normal font-sans"
+                    classNameInput="w-full h-7/12 rounded-lg border border-gray-300 px-4 font-normal font-sans" 
+                    onChange={(e) => setSexo(e.target.value)}
                     />
 
                     <DivInput
@@ -194,7 +188,8 @@ export default function Cadastro(props) {
                     <div className="w-11/12 h-1/6 flex flex-col justify-around font-mono font-black">
 
                         <label htmlFor="departamento">Departamento</label>
-                        <select className="w-full h-7/12 rounded-lg border border-gray-300 px-4 font-normal font-sans" id="departamento">
+                        <select className="w-full h-7/12 rounded-lg border border-gray-300 px-4 font-normal font-sans" 
+                        onChange={(e) => setDepartamento(e.target.value)}>
 
                             {departamento.map(dep => ( 
                                 <option key={dep.id} value={dep.id}>{dep.denominacao}</option>
@@ -206,7 +201,8 @@ export default function Cadastro(props) {
                     <div className="w-11/12 h-1/6 flex flex-col justify-around font-mono font-black">
 
                         <label htmlFor="funcao">Função</label>
-                        <select className="w-full h-7/12 rounded-lg border border-gray-300 px-4 font-normal font-sans" id="funcao">
+                        <select className="w-full h-7/12 rounded-lg border border-gray-300 px-4 font-normal font-sans"
+                        onChange={(e) => setFuncao(e.target.value)}>
 
                             {funcao.map(f => (
                                 <option key={f.id} value={f.id}>{f.denominacao}</option>

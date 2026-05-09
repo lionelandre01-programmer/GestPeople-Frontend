@@ -73,7 +73,12 @@ export default function Desempenho(props){
                             <h3>Departamento: <span className="text-black font-normal">{user.departamento.denominacao}</span></h3>
                             <h3>Função: <span className="text-black font-normal">{user.funcao.denominacao}</span></h3>
                             <h3>Contratado em: <span className="text-black font-normal">{format(new Date(user.created_at), "dd/MM/yyyy HH:mm", { locale: pt })}</span></h3>
-                            <h3>Efectividade: <span className="text-black font-normal">{user.efectividade}</span></h3>
+                            <h3>Situação: {user.ult_suspensao ? 
+                            (<>
+                            {user.ult_suspensao.efectivo && user.ult_suspensao.suspenso ? (<span className="text-amber-600 font-normal">Suspenso</span>) 
+                            : user.ult_suspensao.efectivo && !user.ult_suspensao.suspenso ? (<span className="text-black font-normal">Efectivo</span>) 
+                            : (<span className="text-red-600 font-normal">Demitido</span>)}
+                            </>) : ("Processando...")}</h3>
                         </div>
                     </div>
 

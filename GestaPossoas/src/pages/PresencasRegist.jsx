@@ -10,6 +10,7 @@ import { pt } from 'date-fns/locale';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
 import SimplesBack from '../components/SimplesBack';
+import Alert from '../components/Alert';
 
 export default function PresencasRegist(){
     const [users, setUsers] = useState('');
@@ -94,8 +95,7 @@ export default function PresencasRegist(){
                 <SimplesBack back="/presencas"/>
                 <HeadTitle text="Registro De Faltas & Presenças"/>
                 {aviso ? 
-                (<div 
-                className="w-11/12 h-2/16 absolute mb-180 z-0 flex items-center justify-center text-red-500 text-2xl bg-red-100 border border-l-8 border-red-400 rounded-2xl">{aviso}</div>) 
+                (<Alert aviso={aviso}/>) 
                 : 
                 (<></>)
                 }
@@ -118,7 +118,7 @@ export default function PresencasRegist(){
                             <p>Departamento: <span className="text-gray-500">{user?.departamento.denominacao}</span></p>
                             <p>Cargo: <span className="text-gray-500">{user?.funcao.denominacao}</span></p>
                             <p>Morada: <span className="text-gray-500">{user?.morada}</span></p>
-                            <p>Efectividade: <span className="text-gray-500">{user?.efectividade}</span></p>
+                            <p>Efectividade: <span className="text-gray-500">{user?.suspensao.efectivo ? "Efectivo" : "Não Efectivo"}</span></p>
                             <p>Contratado em: <span className="text-gray-500">{ format(new Date(user?.created_at), 'dd/MM/yyyy', { locale: pt }) }</span></p>
 
                         </div>

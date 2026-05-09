@@ -22,12 +22,46 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => response, 
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
+  error => {
+    if (error.response) {
+      
+      const status = error.response.status;
 
-      window.location.href = "/login";
+      switch(status) {
+
+        case 401:
+          alert("Sessão expirada!");
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+
+          window.location.href = "/login";
+          break;
+
+        case 403:
+          alert("Acesso negado");
+          break;
+
+        case 400:
+          alert("Erro de requisição");
+          break;
+
+        case 404:
+          alert("Recurso não encontrado");
+          break;
+
+        case 500:
+          alert("Erro no servidor");
+          break;
+
+        case 422:
+          alert("Erro nos dados enviados");
+          break;
+
+        default:
+          alert("Erro inesperado");
+
+      }
+
     }
 
     return Promise.reject(error);

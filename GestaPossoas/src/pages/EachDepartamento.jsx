@@ -77,7 +77,7 @@ export default function EachDepartamento(props){
             </div>
 
             <div className="w-full flex flex-1 text-start pl-5 text-2xl font-bold">
-                <h2 className="inline" style={{display: "inline", color: "blue"}}>Responsável Por</h2> &nbsp;
+                <h2 className="inline w-3/10" style={{display: "inline", color: "blue"}}>Responsável Por</h2> &nbsp;
                 <p>{dep.responsabilidade}</p>
             </div>
 
@@ -135,7 +135,12 @@ export default function EachDepartamento(props){
                                     <h3>Gênero: <span className="text-black font-normal">{selectedUser.genero}</span></h3>
                                     <h3>Função: <span className="text-black font-normal">{selectedUser.funcao.denominacao}</span></h3>
                                     <h3>Contratado em: <span className="text-black font-normal">{format(new Date(selectedUser.created_at), "dd/MM/yyyy HH:mm", { locale: pt })}</span></h3>
-                                    <h3>Efectividade: <span className="text-black font-normal">{selectedUser.efectividade}</span></h3>
+                                    <h3>Efectividade: {selectedUser.ult_suspensao ? 
+                                    (<>
+                                    {selectedUser.ult_suspensao.efectivo && selectedUser.ult_suspensao.suspenso ? (<span className="text-amber-600 font-normal">Suspenso</span>) 
+                                    : selectedUser.ult_suspensao.efectivo && !selectedUser.ult_suspensao.suspenso ? (<span className="text-black font-normal">Efectivo</span>) 
+                                    : (<span className="text-red-600 font-normal">Demitido</span>)}
+                                    </>) : ("Processando...")}</h3>
                                 </div>
                             </div>
                         

@@ -70,7 +70,12 @@ export default function Presencas(){
 
                             <p>Nome: <span className="text-gray-500">{user.first_name} {user.last_name}</span></p>
                             <p>Morada: <span className="text-gray-500">{user.morada}</span></p>
-                            <p>Efectividade: <span className="text-gray-500">{user.efectividade}</span></p>
+                            <p>Situação: {user.ult_suspensao ? 
+                            (<>
+                            {user.ult_suspensao.efectivo && user.ult_suspensao.suspenso ? (<span className="text-amber-600">Suspenso</span>) 
+                            : user.ult_suspensao.efectivo && !user.ult_suspensao.suspenso ? (<span className="text-gray-500">Efectivo</span>) 
+                            : (<span className="text-red-600">Demitido</span>)}
+                            </>) : ("Processando...")}</p>
                             <p>Contratado em: <span className="text-gray-500">{ format(new Date(user.created_at), 'dd/MM/yyyy', { locale: pt }) }</span></p>
 
                         </div>

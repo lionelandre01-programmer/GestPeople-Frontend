@@ -6,6 +6,7 @@ import Loading from '../components/Loading';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
+import { FaUserPlus } from "react-icons/fa";
 
 export default function Lista() {
   const [funcionarios, setFuncionarios] = useState([]);
@@ -46,7 +47,7 @@ export default function Lista() {
   return (
     <>
       <Header />
-      <Link to="/cadastro" className="flex absolute py-2 px-2.5 text-center bg-blue-600 border rounded-lg right-25 top-45 text-blue-50 font-bold z-0">Cadastrar Funcionário</Link>
+      <Link to="/cadastro" className="flex absolute py-2 px-2.5 text-center bg-blue-600 border rounded-lg right-25 top-45 text-blue-50 font-bold z-0"><FaUserPlus />Add Funcionário</Link>
       <main>
         <div className="w-full mx-auto p-20">
           <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">Lista de Funcionários</h1>
@@ -67,7 +68,7 @@ export default function Lista() {
                     <td className="px-4 py-2">{func.first_name} {func.last_name}</td>
                     <td className="px-4 py-2">{func.departamento?.denominacao || 'N/A'}</td>
                     <td className="px-4 py-2">{func.funcao.denominacao.toUpperCase() || 'N/A'}</td>
-                    <td className="px-4 py-2">{func.efectividade}</td>
+                    <td className="px-4 py-2">{func.ult_suspensao.efectivo ? "Efectivo" : "Não Efectivo"}</td>
                   </tr>
                 ))}
               </tbody>

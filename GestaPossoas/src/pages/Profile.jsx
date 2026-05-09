@@ -106,7 +106,7 @@ export default function Profile(props) {
                 <FaBullseye className="text-blue-500 mr-3" />
                 <div>
                   <p className="text-sm text-gray-500">Situação</p>
-                  <p className="text-gray-800">{user.efectividade ? 'Efectivo' : 'Não Efectivo'}</p>
+                  <p className="text-gray-800">{user.ult_suspensao?.efectivo ? 'Efectivo' : 'Não Efectivo'}</p>
                 </div>
               </div>
               

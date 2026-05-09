@@ -21,24 +21,22 @@ export default function DashBoard() {
     const fetchStats = async () => {
       try {
 
-        const [departmentsRes, rolesRes, bestEmployee, managersRes, suspendedRes, activeRes] = await Promise.all([
+        const [departmentsRes, rolesRes, bestEmployee, managersRes, lastSuspensaoRes] = await Promise.all([
           api.get('/departamento/users/count'), // { total: 5, members: { dep1: 10, dep2: 15 } }
           api.get('/funcao/users/count'), // { role1: 20, role2: 30 }
           api.get('/user/bests'), // [{ name: 'João Silva', score: 95 }]
           api.get('/funcao/count'), // { count: 3 }
-          api.get('/user/suspended/count'), // { count: 2 }
-          api.get('/user/active/count'), // { count: 100 }
+          api.get('/user/last/suspensao')
         ]);
 
-        console.log(bestEmployee.data);
+        console.log(lastSuspensaoRes.data);
 
         setStats({
           departments: departmentsRes.data,
           roles: rolesRes.data,
           bestEmployee: bestEmployee.data,
           managers: managersRes.data.count,
-          suspended: suspendedRes.data.count,
-          active: activeRes.data.count,
+          suspended: lastSuspensaoRes.data,
         });
       } catch (err) {
         setError('Erro ao carregar estatísticas');
@@ -49,7 +47,7 @@ export default function DashBoard() {
     };
 
     fetchStats();
-  }, [token]);
+  }, []);
 
   if (loading) return <Loading />;
 
@@ -96,7 +94,7 @@ export default function DashBoard() {
               <FaCheckCircle className="text-green-500 text-3xl mr-4" />
               <div>
                 <h3 className="text-lg font-semibold text-gray-800">Efectivos</h3>
-                <p className="text-2xl font-bold text-green-600">{stats.active || 0}</p>
+                <p className="text-2xl font-bold text-green-600">{stats.suspended.user.filter(user => user.ult_suspensao.efectivo === 1).length}</p>
               </div>
             </div>
 
@@ -105,7 +103,7 @@ export default function DashBoard() {
               <FaBan className="text-red-500 text-3xl mr-4" />
               <div>
                 <h3 className="text-lg font-semibold text-gray-800">Suspensos</h3>
-                <p className="text-2xl font-bold text-red-600">{stats.suspended || 0}</p>
+                <p className="text-2xl font-bold text-red-600">{stats.suspended.user.filter(user => user.ult_suspensao.suspenso === 1).length}</p>
               </div>
             </div>
 
@@ -124,7 +122,7 @@ export default function DashBoard() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <FaStar className="text-yellow-500 text-3xl mb-4" />
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Melhor Funcionário</h3>
-              <p className="text-yellow-500 font-bold">{stats.bestEmployee.user.first_name} {stats.bestEmployee.user.last_name} - {stats.bestEmployee?.nivel}%</p>
+              {stats.bestEmployee.user ? (<p className="text-yellow-500 font-bold">{stats.bestEmployee.user?.first_name} {stats.bestEmployee.user?.last_name} - {stats.bestEmployee?.nivel}%</p>) : ("Indefinido")}
             </div>
           </div>
 

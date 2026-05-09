@@ -21,6 +21,9 @@ import FunCadastro from './pages/FunCadastro'
 import Presencas from './pages/Presencas'
 import PresencaInform from './pages/PresencaInform'
 import PresencasRegist from './pages/PresencasRegist'
+import Definicoes from './pages/Definicoes'
+import SalarioCadastro from './pages/SalarioCadastro'
+import Salario from './pages/Salario'
 
 
 
@@ -176,7 +179,10 @@ function App() {
         <Route path="/desempenhos" element={<Desempenho onSubmit={changeDesempenho} reload={reload}/>} />
         <Route path="/eachDep/:id" element={<EachDepartamento onSubmit={changeDesempenho} reload={reload}/>} />
         <Route path="/funcoes" element={<Funcao />} />
+        <Route path="/definicoes" element={<Definicoes />} />
         <Route path="/presencas" element={<Presencas />} />
+        <Route path="/salario" element={<Salario />} />
+        <Route path="/salario/create" element={<SalarioCadastro />} />
         <Route path="/presencas/information/:id" element={<PresencaInform />} />
         <Route path="/presencas/register" element={<PresencasRegist />} />
         <Route path="/funcoes/create" element={<FunCadastro onSubmit={createFun} />} />

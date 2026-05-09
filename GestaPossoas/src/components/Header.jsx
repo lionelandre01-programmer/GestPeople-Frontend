@@ -50,9 +50,9 @@ function Header(){
 
               <ul className="w-full h-full flex items-center justify-evenly">
                 <li><Link to="/presencas" className="flex flex-col items-center text-lg"><FaBullseye />Presenças</Link></li>
-                <li><Link to="/dashboard" className='flex flex-col items-center text-lg'> <FaTachometerAlt /> <span>DashBoard</span> </Link></li>
+                <li><Link to="/salario" className='flex flex-col items-center text-lg'> <FaBullseye /> <span>Salários</span> </Link></li>
                 <li><Link to="/lista" className='flex flex-col items-center text-lg'> <FaUsers /> <span>Funcionários</span> </Link></li>
-                <li><Link to="/profile" className='flex flex-col items-center text-lg'> <FaUserCircle /> <span>Perfil</span> </Link></li>
+                <li><Link to="/definicoes" className='flex flex-col items-center text-lg'> <FaBullseye /> Definições </Link></li>
               </ul>
 
             </div>
@@ -61,7 +61,6 @@ function Header(){
         ) : (
           <ul className="w-full h-full flex items-center justify-evenly">
             <li><a href="#footer" className='flex flex-col items-center text-lg'><FaPhone />SUPPORT</a></li>
-            <li><Link to="/cadastro" className='flex flex-col items-center text-lg'><FaUserPlus />SIGN UP</Link></li>
             <li><Link to="/login" className='flex flex-col items-center text-lg'><FaSignInAlt />LOGIN</Link></li>
           </ul>
         )}

@@ -1,13 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import HeadTitle from "../components/HeadTitle";
 import DivInput from "../components/DivInput";
 import DivInputSubmit from "../components/DivInputSubmit";
+import Loading from "../components/Loading";
+import api from "../api";
 
 export default function FunCadastro(props){
     const [name, setName] = useState('');
     const [resp, setResp] = useState('');
     const [salary, setSalary] = useState('');
+    const [salaries, setSalaries] = useState('');
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+
+        const fetchSalary = async () => {
+
+            try{
+
+                const response = await api.get('/salary');
+                console.log(response.data);
+                setSalaries(response.data);
+
+            } catch (error) {
+
+                console.log("Erro ao trazer os salários: ",error.response.data);
+
+            } finally {
+
+                setLoading(false);
+
+            }
+
+        }
+
+        fetchSalary();
+
+    }, []);
+
+    if (loading) return <Loading />;
 
     function getDados(e){
         e.preventDefault();
@@ -15,7 +47,7 @@ export default function FunCadastro(props){
         const dados = {
             denominacao: name,
             responsabilidade: resp,
-            salario: salary
+            salary_id: salary
         }
 
         props.onSubmit(dados);
@@ -51,16 +83,16 @@ export default function FunCadastro(props){
                     onChange={(e) => setResp(e.target.value)}
                     />
 
-                    <DivInput
-                    className="w-11/12 flex-1 flex flex-col gap-2 font-mono font-black"
-                    label="salario"
-                    labelText="Pagamento Mensal"
-                    type="number"
-                    value={salary}
-                    placeholder="Salário Mensal"
-                    classNameInput="w-full h-8 rounded-lg border border-gray-300 px-4 font-normal font-sans"
-                    onChange={(e) => setSalary(e.target.value)}
-                    />
+                    <div className="w-11/12 flex-1 flex flex-col gap-2 font-mono font-black">
+                        <label htmlFor="salario">Pagamento Mensal</label>
+                        <select className="w-4/10 border-b border-blue-500 text-blue-500" id="salario" onChange={(e) => setSalary(e.target.value)}>
+                            {salaries.map(sal => (
+
+                                <option key={sal.id} value={sal.id}>{sal.salario}kz</option>
+
+                            ))}
+                        </select>
+                    </div>
 
                     <DivInputSubmit 
                     className="w-11/12 flex-1 flex justify-around font-mono font-black pt-2.5" 
