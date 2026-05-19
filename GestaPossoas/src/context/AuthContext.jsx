@@ -21,17 +21,9 @@ export function AuthProvider({ children }){
 
     }, []);
 
-    function login() {
-
-        const token = localStorage.getItem("token");
-        const user = localStorage.getItem("user");
-        setToken(token);
-        setUser(JSON.parse(user));
-
-    };
 
     return (
-        <AuthContext.Provider value={{ user, setUser, token, setToken, login }}>
+        <AuthContext.Provider value={{ user, setUser, token, setToken }}>
             { children }
         </AuthContext.Provider>
     );

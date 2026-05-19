@@ -7,7 +7,7 @@ export default function Back(props){
     const { user } = useAuth();
 
     return (
-        <div className="w-full h-30 bg-white flex items-center justify-between px-8 border mb-8 z-10">
+        <div className="w-full h-30 bg-white flex items-center justify-between px-8 border z-10">
             <Link to={props.back}><FaArrowLeft />Voltar</Link>
 
             <div className="flex flex-col items-center w-4/10 item-center justify-center">

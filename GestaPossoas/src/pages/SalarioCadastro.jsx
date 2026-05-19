@@ -40,10 +40,10 @@ export default function SalarioCadastro(){
 
         const data = {
             salario: salary,
-            transporte: 25,
-            alimentacao: 15,
+            transporte: 40,
+            alimentacao: 30,
             presenca: 10,
-            desempenho: 10
+            desempenho: 20
         }
 
         sendSalary(data);
@@ -77,14 +77,14 @@ export default function SalarioCadastro(){
                 className="w-5/11 h-2/11 flex flex-col font-mono font-black" 
                 label="alimenta" 
                 text="Subsídio de alimentação" 
-                value="15%"
+                value="30%"
                 />
 
                 <DivInputDisable 
                 className="w-5/11 h-2/11 flex flex-col font-mono font-black" 
                 label="transporta" 
                 text="Subsídio de transporte" 
-                value="25%"
+                value="40%"
                 />
 
                 <DivInputDisable 
@@ -98,7 +98,7 @@ export default function SalarioCadastro(){
                 className="w-5/11 h-2/11 flex flex-col font-mono font-black" 
                 label="desempenhos" 
                 text="Subsídio de desempenho" 
-                value="10%"
+                value="20%"
                 />
 
                 <DivInputSubmit 

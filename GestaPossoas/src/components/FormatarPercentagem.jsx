@@ -1,0 +1,8 @@
+export default function FormatarPercentagem({value}) {
+
+  if (value === null || value === undefined || value === "") return "-";
+  const number = Number(value);
+  if (Number.isNaN(number)) return "-";
+  return `${number}%`;
+
+}

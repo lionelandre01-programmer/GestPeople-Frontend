@@ -7,6 +7,7 @@ import DivInput from '../components/DivInput';
 import DivSelect from '../components/DivSelect';
 import DivInputSubmit from '../components/DivInputSubmit';
 import Loading from '../components/Loading';
+import Processamento from '../components/Processamento';
 
 export default function UpdateUser(props) {
   const { user } = useAuth();
@@ -15,6 +16,7 @@ export default function UpdateUser(props) {
   const [email, setEmail] = useState(user?.email || '');
   const [phone, setPhone] = useState(user?.phone || '');
   const [morada, setMorada] = useState(user?.morada || '');
+  const [bi, setBi] = useState(user?.bi || '');
   const [genero, setGenero] = useState(user?.genero || '');
   const [nascimento, setNascimento] = useState(user?.nascimento || '');
   const [departamento, setDepartamentoId] = useState(user?.departamento?.id || '');
@@ -23,6 +25,7 @@ export default function UpdateUser(props) {
   const [departamentos, setDepartamentos] = useState([]);
   const [funcoes, setFuncoes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [processamento, setProcessamento] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,6 +47,7 @@ export default function UpdateUser(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setProcessamento(true);
 
     const formData = new FormData();
     formData.append('first_name', firstName);
@@ -51,14 +55,19 @@ export default function UpdateUser(props) {
     formData.append('email', email);
     formData.append('phone', phone);
     formData.append('morada', morada);
+    formData.append('bi', bi);
     formData.append('nascimento', nascimento);
     formData.append('genero', genero);
     formData.append('departamento_id', departamento);
     formData.append('funcao_id', funcao);
 
-    if (photo) {
+    if (photo && photo != user.image) {
       formData.append('image', photo);
     }
+
+    /*for (let [chave, valor] of formData.entries()){
+      console.log(chave +" : "+ valor);
+    }*/
 
     props.onSubmit(formData);
     
@@ -67,7 +76,8 @@ export default function UpdateUser(props) {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow bg-gray-50 py-12 px-6 md:px-12 lg:px-24">
+      <main className="relative flex-grow bg-gray-50 py-12 px-6 md:px-12 lg:px-24">
+        {processamento ? <Processamento text="Actualizando..."/>:""}
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">Editar Perfil</h1>
           
@@ -181,10 +191,21 @@ export default function UpdateUser(props) {
                   className="w-full h-10 rounded-lg border border-gray-300 px-4"
                   onChange={(e) => setPhoto(e.target.files[0])}
                 />
-                {user?.image && (
+              </div>
+
+              <DivInput
+                className="w-full"
+                label="bi"
+                labelText="Número Do BI"
+                type="text"
+                value={bi}
+                classNameInput="w-full h-10 rounded-lg border border-gray-300 px-4"
+                onChange={(e) => setBi(e.target.value)}
+              />
+
+              {user?.image && (
                   <img src={`http://127.0.0.1:8000/storage/${user.image}`} alt="Foto atual" className="mt-2 w-20 h-20 rounded-full" />
                 )}
-              </div>
             </div>
             
             <DivInputSubmit

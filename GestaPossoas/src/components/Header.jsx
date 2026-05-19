@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { FaHome, FaPhone, FaSignInAlt, FaUserPlus, FaUserCircle, FaUsers, FaTachometerAlt, FaBuilding, FaTasks, FaUserTie, FaBullseye} from "react-icons/fa";
+import { FaHome, FaPhone, FaSignInAlt, FaUserCircle, FaUsers, FaTachometerAlt, FaBuilding, FaTasks, FaUserTie, FaBullseye, FaTools, FaMoneyBill} from "react-icons/fa";
 import '../App.css'
+import { FaMessage } from 'react-icons/fa6';
 
 function Header(){
   const token = localStorage.getItem('token');
@@ -50,9 +51,9 @@ function Header(){
 
               <ul className="w-full h-full flex items-center justify-evenly">
                 <li><Link to="/presencas" className="flex flex-col items-center text-lg"><FaBullseye />Presenças</Link></li>
-                <li><Link to="/salario" className='flex flex-col items-center text-lg'> <FaBullseye /> <span>Salários</span> </Link></li>
-                <li><Link to="/lista" className='flex flex-col items-center text-lg'> <FaUsers /> <span>Funcionários</span> </Link></li>
-                <li><Link to="/definicoes" className='flex flex-col items-center text-lg'> <FaBullseye /> Definições </Link></li>
+                <li><Link to="/salario" className='flex flex-col items-center text-lg'> <FaMoneyBill /> <span>Salários</span> </Link></li>
+                <li><Link to="/messeges" className='flex flex-col items-center text-lg'> <FaMessage /> <span>Mensagens</span> </Link></li>
+                <li><Link to="/definicoes" className='flex flex-col items-center text-lg'> <FaTools /> Definições </Link></li>
               </ul>
 
             </div>

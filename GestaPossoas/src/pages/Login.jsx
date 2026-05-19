@@ -2,22 +2,57 @@ import { useState } from "react";
 import Back from "../components/Back";
 import DivInput from "../components/DivInput";
 import DivInputSubmit from "../components/DivInputSubmit";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Processamento from "../components/Processamento";
+import api from "../api";
 
-export default function Login(props){
+export default function Login(){
 
+    const navegate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [processamento, setProcessamento] = useState(false);
+
+    async function fazerLogin(dados){
+
+        try{
+
+        const response = await api.post('/login', dados);
+
+        if (response.data.user && response.data.token) {
+        
+            console.log("Login Realizado Com Sucesso!");
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+            navegate("/");
+
+        }else{
+
+            console.log('Resposta inesperada do servidor: ', response.data);
+        }
+
+        } catch (error) {
+
+            console.log('Erro ao fazer login: ', error.response?.data || error.message);
+        
+        }finally{
+
+            setProcessamento(false);
+
+        }
+    }
 
     function getDados(e){
         e.preventDefault();
+
+        setProcessamento(true);
 
         const dados = {
             email: email,
             password: password
         }
 
-        props.onSubmit(dados);
+        fazerLogin(dados);
 
     }
 
@@ -25,6 +60,8 @@ export default function Login(props){
         <div className="h-dvh w-full flex flex-col items-center">
 
             <Back back="/"/>
+
+            {processamento ? <Processamento text="Processando o login..."/> : ""}
 
             <h2 className="text-center text-2xl text-blue-500 font-bold">FAZER LOGIN</h2>
 

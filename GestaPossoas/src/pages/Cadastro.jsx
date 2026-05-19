@@ -18,8 +18,10 @@ export default function Cadastro(props) {
     const [sexo, setSexo] = useState('');
     const [passWord, setPassWord] = useState('');
     const [passWordConf, setPassWordConf] = useState('');
-    const [departamento, setDepartamento] = useState('');
-    const [funcao, setFuncao] = useState('');
+    const [departamento, setDepartamento] = useState([]);
+    const [funcao, setFuncao] = useState([]);
+    const [fun, setFun] = useState('');
+    const [depart, setDepart] = useState('');
     const [aviso, setAviso] = useState('');
     const [loding, setLoading] = useState(true);
 
@@ -32,14 +34,13 @@ export default function Cadastro(props) {
             const response = await api.get('/departamento/get');
             const resp = await api.get('/funcao/get');
             
-            setDepartamento( response.data);
+            setDepartamento(response.data);
             setFuncao(resp.data);
             console.log(resp.data);
 
-            } catch(erro) {
+            } catch(error) {
 
-                console.log('Erro: ',erro);
-                throw erro;
+                console.log('Erro: ',error.response.data);
 
             }finally{
 
@@ -57,7 +58,6 @@ export default function Cadastro(props) {
         e.preventDefault();
 
         if (passWord === passWordConf ){
-
             
             const dados = {
             first_name: firstName,
@@ -66,8 +66,8 @@ export default function Cadastro(props) {
             genero: sexo,
             morada: morada,
             nascimento: dataNascimento,
-            departamento_id: departamento,
-            funcao_id: funcao,
+            departamento_id: depart,
+            funcao_id: fun,
             email: email,
             password: passWord
             }
@@ -83,20 +83,6 @@ export default function Cadastro(props) {
 
     }
 
-    //function validConfPass(){
-
-        //console.log("Palavra-Passe");
-        //const pass1 = document.getElementById('password').value;
-        //const pass2 = document.getElementById('passwordConf').value;
-
-        //if (pass1 == pass2){
-
-            //document.getElementById('validPass').innerHTML = "<span style={{'color: 'green''}}>Palavras-Passe Correspondem!</span>";
-        //} else {
-
-            //document.getElementById('validPass').innerHTML = "<span style={{'color: 'red''}}>Palavra-Passe Não Correspondem!</span>";
-        //}
-    //}
 
     return (
         <div className="h-dvh w-full flex flex-col items-center justify-center">
@@ -189,8 +175,9 @@ export default function Cadastro(props) {
 
                         <label htmlFor="departamento">Departamento</label>
                         <select className="w-full h-7/12 rounded-lg border border-gray-300 px-4 font-normal font-sans" 
-                        onChange={(e) => setDepartamento(e.target.value)}>
+                        onChange={(e) => setDepart(e.target.value)}>
 
+                            <option>Selecione um departamento</option>
                             {departamento.map(dep => ( 
                                 <option key={dep.id} value={dep.id}>{dep.denominacao}</option>
                             ))}
@@ -202,8 +189,9 @@ export default function Cadastro(props) {
 
                         <label htmlFor="funcao">Função</label>
                         <select className="w-full h-7/12 rounded-lg border border-gray-300 px-4 font-normal font-sans"
-                        onChange={(e) => setFuncao(e.target.value)}>
+                        onChange={(e) => setFun(e.target.value)}>
 
+                            <option>Selecione uma função</option>
                             {funcao.map(f => (
                                 <option key={f.id} value={f.id}>{f.denominacao}</option>
                             ))}

@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
-import { FaUser, FaEnvelope, FaPhone, FaCalendar, FaMapMarkerAlt, FaBuilding, FaUserTie, FaFileSignature, FaBullseye, FaSignOutAlt } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaPhone, FaCalendar, FaMapMarkerAlt, FaBuilding, FaUserTie, FaFileSignature, FaBullseye, FaSignOutAlt, FaIdCard } from "react-icons/fa";
 
 export default function Profile(props) {
   const { user } = useAuth();
@@ -40,7 +40,7 @@ export default function Profile(props) {
               (<FaUser className="text-blue-500 text-4xl mr-4" />)}
               <div className="text-center">
                 <h2 className="text-2xl font-semibold text-gray-800">
-                  {user.first_name} {user.last_name || ''}
+                  {user?.first_name} {user?.last_name || ''}
                 </h2>
                 <p className="text-gray-600">Usuário</p>
               </div>
@@ -51,7 +51,7 @@ export default function Profile(props) {
                 <FaEnvelope className="text-blue-500 mr-3" />
                 <div>
                   <p className="text-sm text-gray-500">Email</p>
-                  <p className="text-gray-800">{user.email}</p>
+                  <p className="text-gray-800">{user?.email}</p>
                 </div>
               </div>
 
@@ -59,7 +59,7 @@ export default function Profile(props) {
                 <FaPhone className="text-blue-500 mr-3" />
                 <div>
                   <p className="text-sm text-gray-500">Telefone</p>
-                  <p className="text-gray-800">{user.phone}</p>
+                  <p className="text-gray-800">{user?.phone}</p>
                 </div>
               </div>
 
@@ -67,14 +67,14 @@ export default function Profile(props) {
                 <FaCalendar className="text-blue-500 mr-3" />
                 <div>
                   <p className="text-sm text-gray-500">Data De Nascimento</p>
-                  <p className="text-gray-800">{user.nascimento}</p>
+                  <p className="text-gray-800">{user?.nascimento}</p>
                 </div>
               </div>
               <div className="flex items-center">
                 <FaMapMarkerAlt className="text-blue-500 mr-3" />
                 <div>
                   <p className="text-sm text-gray-500">Morada</p>
-                  <p className="text-gray-800">{user.morada}</p>
+                  <p className="text-gray-800">{user?.morada}</p>
                 </div>
               </div>
 
@@ -82,7 +82,7 @@ export default function Profile(props) {
                 <FaBuilding className="text-blue-500 mr-3" />
                 <div>
                   <p className="text-sm text-gray-500">Departamento</p>
-                  <p className="text-gray-800">{user.departamento?.denominacao}</p>
+                  <p className="text-gray-800">{user?.departamento?.denominacao}</p>
                 </div>
               </div>
 
@@ -90,7 +90,7 @@ export default function Profile(props) {
                 <FaUserTie className="text-blue-500 mr-3" />
                 <div>
                   <p className="text-sm text-gray-500">Função</p>
-                  <p className="text-gray-800">{user.funcao?.denominacao}</p>
+                  <p className="text-gray-800">{user?.funcao?.denominacao}</p>
                 </div>
               </div>
 
@@ -98,7 +98,7 @@ export default function Profile(props) {
                 <FaFileSignature className="text-blue-500 mr-3" />
                 <div>
                   <p className="text-sm text-gray-500">Contratado</p>
-                  <p className="text-gray-800">{format(new Date(user.created_at), "dd/MM/yyyy HH:mm", { locale: pt })}</p>
+                  <p className="text-gray-800">{format(new Date(user?.created_at), "dd/MM/yyyy HH:mm", { locale: pt })}</p>
                 </div>
               </div>
 
@@ -106,7 +106,15 @@ export default function Profile(props) {
                 <FaBullseye className="text-blue-500 mr-3" />
                 <div>
                   <p className="text-sm text-gray-500">Situação</p>
-                  <p className="text-gray-800">{user.ult_suspensao?.efectivo ? 'Efectivo' : 'Não Efectivo'}</p>
+                  <p className="text-gray-800">{user?.ult_suspensao?.efectivo ? 'Efectivo' : 'Não Efectivo'}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center">
+                <FaIdCard className="text-blue-500 mr-3" />
+                <div>
+                  <p className="text-sm text-gray-500">Número De Identificação</p>
+                  <p className="text-gray-800">{user?.bi || 'Não Informado'}</p>
                 </div>
               </div>
               

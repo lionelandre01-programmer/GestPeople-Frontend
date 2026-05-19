@@ -102,3 +102,17 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ## Contato
 
 Para dúvidas ou sugestões, entre em contato com [lionelgomes@084gmail.com].
+
+## 📄 Licença
+
+Este projeto está sob a licença [MIT](LICENSE).
+
+## 👥 Autor
+
+Desenvolvido Por Lionel Cristóvão André.
+
+---
+
+**Status do Projeto**: Em desenvolvimento 🚧
+
+**Última atualização**: Maio de 2026

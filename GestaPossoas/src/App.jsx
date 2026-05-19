@@ -24,6 +24,8 @@ import PresencasRegist from './pages/PresencasRegist'
 import Definicoes from './pages/Definicoes'
 import SalarioCadastro from './pages/SalarioCadastro'
 import Salario from './pages/Salario'
+import Pagamento from './pages/Pagamento'
+import Messege from './pages/Messege'
 
 
 
@@ -44,7 +46,7 @@ function Main(){
 function App() {
 
   const navegate = useNavigate();
-  const { setUser, setToken, login } = useAuth();
+  const { setUser, setToken } = useAuth();
   const [reload, setReload] = useState(false);
 
   async function criarDepartamento(data){
@@ -68,31 +70,6 @@ function App() {
     } catch (error) {
 
       console.log('Erro ao cadastrar usuário: ', error.response.data);
-    }
-  }
-
-  async function fazerLogin(dados){
-
-    try{
-
-      const response = await api.post('/login', dados);
-
-      if (response.data.user && response.data.token) {
-      
-        console.log("Login Realizado Com Sucesso!");
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        login();
-        navegate("/");
-
-      }else{
-
-        console.log('Resposta inesperada do servidor: ', response.data);
-      }
-
-    } catch (error) {
-
-      console.log('Erro ao fazer login: ', error.response?.data || error.message);
     }
   }
 
@@ -122,13 +99,17 @@ function App() {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log('Usuário atualizado com sucesso:', response.data.user);
+      localStorage.setItem('user', JSON.stringify(response.data));
+      console.log('Usuário atualizado com sucesso!');
       
-      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("user", JSON.stringify(response.data));
       setUser(response.data.user);
       navegate("/profile");
+
     } catch (error) {
-      console.error('Erro ao atualizar usuário:', error);
+
+      console.error('Erro ao atualizar usuário:', error.response.data);
+    
     }
   }
 
@@ -168,7 +149,7 @@ function App() {
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path='/login' element={<Login onSubmit={fazerLogin}/>} />
+        <Route path='/login' element={<Login />} />
         <Route path="/cadastro" element={<Cadastro onSubmit={cadastrarUser}/>} />
         <Route path="/departamento/cadastro" element={<DepCadastro onSubmit={criarDepartamento}/>} />
         <Route path="/profile" element={<Profile onSubmit={fazerLogout}/>} />
@@ -182,6 +163,8 @@ function App() {
         <Route path="/definicoes" element={<Definicoes />} />
         <Route path="/presencas" element={<Presencas />} />
         <Route path="/salario" element={<Salario />} />
+        <Route path="/salario/pagamento/:id" element={<Pagamento />} />
+        <Route path="/messeges" element={<Messege />} />
         <Route path="/salario/create" element={<SalarioCadastro />} />
         <Route path="/presencas/information/:id" element={<PresencaInform />} />
         <Route path="/presencas/register" element={<PresencasRegist />} />
