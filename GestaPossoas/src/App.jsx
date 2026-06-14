@@ -26,6 +26,12 @@ import SalarioCadastro from './pages/SalarioCadastro'
 import Salario from './pages/Salario'
 import Pagamento from './pages/Pagamento'
 import Messege from './pages/Messege'
+import Employees from './pages/Employees'
+import EmployeeDetails from './pages/EmployeeDetails'
+import Movimentos from './pages/Movimentos'
+import MovimentoDetails from './pages/MovimentoDetails'
+import EditEmployeeDetails from './pages/EditEmployeeDetails'
+import EditSalario from './pages/EditSalario'
 
 
 
@@ -163,8 +169,14 @@ function App() {
         <Route path="/definicoes" element={<Definicoes />} />
         <Route path="/presencas" element={<Presencas />} />
         <Route path="/salario" element={<Salario />} />
+        <Route path="/salario/edit/:id" element={<EditSalario />} />
         <Route path="/salario/pagamento/:id" element={<Pagamento />} />
         <Route path="/messeges" element={<Messege />} />
+        <Route path="/employees" element={<Employees />} />
+        <Route path="/employees/details/:id" element={<EmployeeDetails />} />
+        <Route path="/employees/details/edit/:id" element={<EditEmployeeDetails />} />
+        <Route path="/movimentos" element={<Movimentos />} />
+        <Route path="/movimentos/details/:id" element={<MovimentoDetails />} />
         <Route path="/salario/create" element={<SalarioCadastro />} />
         <Route path="/presencas/information/:id" element={<PresencaInform />} />
         <Route path="/presencas/register" element={<PresencasRegist />} />

@@ -1,4 +1,4 @@
-export default function DivInput(props) {
+export default function DivInputReadonly(props) {
   return (
     <div className={props.className}>
       <label htmlFor={props.label}>{props.labelText}</label>
@@ -8,7 +8,7 @@ export default function DivInput(props) {
         id={props.label}
         className={props.classNameInput}
         placeholder={props.placeholder}
-        onChange={props.onChange} 
+        onChange={props.onChange} readOnly
       />
     </div>
   );

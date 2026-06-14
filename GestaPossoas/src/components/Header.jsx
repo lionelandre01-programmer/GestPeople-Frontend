@@ -26,8 +26,8 @@ function Header(){
 
   return (
 
-    <header className="flex items-center justify-between w-full h-30 bg-blue-300 px-4">
-      <h1 className="text-6xl text-blue-50 font-bold text-shadow-blue-600">GestPeople</h1>
+    <header className="flex items-center justify-between w-full h-40 bg-blue-300 px-4">
+      <h1 className="text-7xl text-blue-50 font-bold text-shadow-blue-600">GestPeople</h1>
       <nav className="w-2/5">
         {token ? (
           <div className="w-full h-full flex flex-col p-4">
@@ -37,23 +37,23 @@ function Header(){
             <div id="menu">
 
               <ul className="w-full h-full flex items-center justify-evenly">
-                <li><Link to="/" className="flex flex-col items-center text-lg"><FaHome />HOME</Link></li>
-                <li><Link to="/dashboard" className='flex flex-col items-center text-lg'> <FaTachometerAlt /> <span>DashBoard</span> </Link></li>
-                <li><Link to="/lista" className='flex flex-col items-center text-lg'> <FaUsers /> <span>Funcionários</span> </Link></li>
-                <li><Link to="/profile" className='flex flex-col items-center text-lg'> <FaUserCircle /> <span>Perfil</span> </Link></li>
+                <li><Link to="/" className="flex flex-col items-center text-2xl"><FaHome />HOME</Link></li>
+                <li><Link to="/dashboard" className='flex flex-col items-center text-2xl'> <FaTachometerAlt /> <span>DashBoard</span> </Link></li>
+                <li><Link to="/lista" className='flex flex-col items-center text-2xl'> <FaUsers /> <span>Funcionários</span> </Link></li>
+                <li><Link to="/profile" className='flex flex-col items-center text-2xl'> <FaUserCircle /> <span>Perfil</span> </Link></li>
               </ul>
 
               <ul className="w-full h-full flex items-center justify-evenly">
-                <li><Link to="/departamentos" className="flex flex-col items-center text-lg"><FaBuilding />Departamentos</Link></li>
-                <li><Link to="/desempenhos" className='flex flex-col items-center text-lg'> <FaTasks /> <span>Desempenho</span> </Link></li>
-                <li><Link to="/funcoes" className='flex flex-col items-center text-lg'> <FaUserTie /> <span>Funções</span> </Link></li>
+                <li><Link to="/departamentos" className="flex flex-col items-center text-2xl"><FaBuilding />Departamentos</Link></li>
+                <li><Link to="/desempenhos" className='flex flex-col items-center text-2xl'> <FaTasks /> <span>Desempenho</span> </Link></li>
+                <li><Link to="/funcoes" className='flex flex-col items-center text-2xl'> <FaUserTie /> <span>Funções</span> </Link></li>
               </ul>
 
               <ul className="w-full h-full flex items-center justify-evenly">
-                <li><Link to="/presencas" className="flex flex-col items-center text-lg"><FaBullseye />Presenças</Link></li>
-                <li><Link to="/salario" className='flex flex-col items-center text-lg'> <FaMoneyBill /> <span>Salários</span> </Link></li>
-                <li><Link to="/messeges" className='flex flex-col items-center text-lg'> <FaMessage /> <span>Mensagens</span> </Link></li>
-                <li><Link to="/definicoes" className='flex flex-col items-center text-lg'> <FaTools /> Definições </Link></li>
+                <li><Link to="/presencas" className="flex flex-col items-center text-2xl"><FaBullseye />Presenças</Link></li>
+                <li><Link to="/salario" className='flex flex-col items-center text-2xl'> <FaMoneyBill /> <span>Salários</span> </Link></li>
+                <li><Link to="/messeges" className='flex flex-col items-center text-2xl'> <FaMessage /> <span>Mensagens</span> </Link></li>
+                <li><Link to="/definicoes" className='flex flex-col items-center text-2xl'> <FaTools /> Definições </Link></li>
               </ul>
 
             </div>
@@ -61,8 +61,8 @@ function Header(){
           
         ) : (
           <ul className="w-full h-full flex items-center justify-evenly">
-            <li><a href="#footer" className='flex flex-col items-center text-lg'><FaPhone />SUPPORT</a></li>
-            <li><Link to="/login" className='flex flex-col items-center text-lg'><FaSignInAlt />LOGIN</Link></li>
+            <li><a href="#footer" className='flex flex-col items-center text-2xl'><FaPhone />SUPPORT</a></li>
+            <li><Link to="/login" className='flex flex-col items-center text-2xl'><FaSignInAlt />LOGIN</Link></li>
           </ul>
         )}
       </nav>

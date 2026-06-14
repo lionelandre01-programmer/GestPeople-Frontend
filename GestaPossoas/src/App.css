@@ -12,10 +12,10 @@ svg {
 #menu.ativo{
   display: block;
   position: absolute;
-  height: 80vh;
+  height: 50vh;
   width: 40%;
   right: 0;
-  top: 19vh;
+  top: 18.7vh;
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -26,7 +26,7 @@ svg {
 
 nav div ul li{
   border: 1px solid black;
-  padding: 5px;
+  padding: 1rem;
   border-radius: 0.5rem;
 }
 
