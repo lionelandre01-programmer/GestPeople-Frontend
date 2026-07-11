@@ -36,20 +36,20 @@ function Header(){
 
             <div id="menu">
 
-              <ul className="w-full h-full flex items-center justify-evenly">
+              <ul className="w-full h-full flex flex-col items-stretch justify-evenly gap-1 md:flex-row lg:flex-row">
                 <li><Link to="/" className="flex flex-col items-center text-2xl"><FaHome />HOME</Link></li>
                 <li><Link to="/dashboard" className='flex flex-col items-center text-2xl'> <FaTachometerAlt /> <span>DashBoard</span> </Link></li>
                 <li><Link to="/lista" className='flex flex-col items-center text-2xl'> <FaUsers /> <span>Funcionários</span> </Link></li>
                 <li><Link to="/profile" className='flex flex-col items-center text-2xl'> <FaUserCircle /> <span>Perfil</span> </Link></li>
               </ul>
 
-              <ul className="w-full h-full flex items-center justify-evenly">
+              <ul className="w-full h-full flex flex-col items-stretch justify-evenly gap-1 md:flex-row lg:flex-row">
                 <li><Link to="/departamentos" className="flex flex-col items-center text-2xl"><FaBuilding />Departamentos</Link></li>
                 <li><Link to="/desempenhos" className='flex flex-col items-center text-2xl'> <FaTasks /> <span>Desempenho</span> </Link></li>
                 <li><Link to="/funcoes" className='flex flex-col items-center text-2xl'> <FaUserTie /> <span>Funções</span> </Link></li>
               </ul>
 
-              <ul className="w-full h-full flex items-center justify-evenly">
+              <ul className="w-full h-full flex flex-col items-stretch justify-evenly gap-1 md:flex-row lg:flex-row">
                 <li><Link to="/presencas" className="flex flex-col items-center text-2xl"><FaBullseye />Presenças</Link></li>
                 <li><Link to="/salario" className='flex flex-col items-center text-2xl'> <FaMoneyBill /> <span>Salários</span> </Link></li>
                 <li><Link to="/messeges" className='flex flex-col items-center text-2xl'> <FaMessage /> <span>Mensagens</span> </Link></li>

@@ -16,8 +16,10 @@ import DashBoard from './pages/DashBoard'
 import Departamentos from './pages/Departamentos'
 import Desempenho from './pages/Desempenho'
 import EachDepartamento from './pages/EachDepartamento'
+import DepEdit from './pages/DepEdit'
 import Funcao from './pages/Funcao'
 import FunCadastro from './pages/FunCadastro'
+import FunEdit from './pages/FunEdit'
 import Presencas from './pages/Presencas'
 import PresencaInform from './pages/PresencaInform'
 import PresencasRegist from './pages/PresencasRegist'
@@ -28,12 +30,12 @@ import Pagamento from './pages/Pagamento'
 import Messege from './pages/Messege'
 import Employees from './pages/Employees'
 import EmployeeDetails from './pages/EmployeeDetails'
+import SearchEmployee from './pages/SearchEmployee'
 import Movimentos from './pages/Movimentos'
 import MovimentoDetails from './pages/MovimentoDetails'
 import EditEmployeeDetails from './pages/EditEmployeeDetails'
 import EditSalario from './pages/EditSalario'
-
-
+import SenhaEdit from './pages/SenhaEdit'
 
 function Main(){
   return (
@@ -71,7 +73,7 @@ function App() {
     try{
       const response = await api.post('/user/create', dados);
       console.log('Usuário Cadastrado Com Sucesso: ', response.data);
-      navegate("/");
+      navegate("/lista");
 
     } catch (error) {
 
@@ -158,6 +160,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path="/cadastro" element={<Cadastro onSubmit={cadastrarUser}/>} />
         <Route path="/departamento/cadastro" element={<DepCadastro onSubmit={criarDepartamento}/>} />
+        <Route path="/departamento/edit/:id" element={<DepEdit />} />
         <Route path="/profile" element={<Profile onSubmit={fazerLogout}/>} />
         <Route path="/update-user" element={<UpdateUser onSubmit={updateUser}/>} />
         <Route path="/lista" element={<Lista />} />
@@ -167,12 +170,14 @@ function App() {
         <Route path="/eachDep/:id" element={<EachDepartamento onSubmit={changeDesempenho} reload={reload}/>} />
         <Route path="/funcoes" element={<Funcao />} />
         <Route path="/definicoes" element={<Definicoes />} />
+        <Route path="/senha/edit" element={<SenhaEdit />} />
         <Route path="/presencas" element={<Presencas />} />
         <Route path="/salario" element={<Salario />} />
         <Route path="/salario/edit/:id" element={<EditSalario />} />
         <Route path="/salario/pagamento/:id" element={<Pagamento />} />
         <Route path="/messeges" element={<Messege />} />
         <Route path="/employees" element={<Employees />} />
+        <Route path="/employees/search" element={<SearchEmployee />} />
         <Route path="/employees/details/:id" element={<EmployeeDetails />} />
         <Route path="/employees/details/edit/:id" element={<EditEmployeeDetails />} />
         <Route path="/movimentos" element={<Movimentos />} />
@@ -181,6 +186,7 @@ function App() {
         <Route path="/presencas/information/:id" element={<PresencaInform />} />
         <Route path="/presencas/register" element={<PresencasRegist />} />
         <Route path="/funcoes/create" element={<FunCadastro onSubmit={createFun} />} />
+        <Route path="/funcoes/edit/:id" element={<FunEdit />} />
       </Routes>
     </AuthProvider>
     

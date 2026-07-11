@@ -6,7 +6,6 @@ export default function DivSelect(props){
             <label htmlFor={props.label}>{props.labelText}</label>
             <select
                 id={props.label}
-                value={props.value}
                 className={props.classNameInput}
                 onChange={props.onChange}
             >
