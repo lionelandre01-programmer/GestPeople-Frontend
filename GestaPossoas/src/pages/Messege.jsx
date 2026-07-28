@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import api from "../api";
-import '../app.css'
+import '../app.css';
 import Loading from "../components/Loading";
 import Back from "../components/Back";
 import Sucesso from "../components/Sucesso";
 import HeadTitle from "../components/HeadTitle";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaTrash } from "react-icons/fa";
 import { format } from "date-fns";
 import { pt } from "date-fns/locale";
 import { useAuth } from "../context/AuthContext";
@@ -20,6 +20,7 @@ export default function Messege(){
     const [send, setSend] = useState(true);
     const [body, setBody] = useState('');
     const [mensagem, setMensagem] = useState('');
+    const [toUserId, setToUserId] = useState('');
 
     useEffect(() => {
 
@@ -44,7 +45,6 @@ export default function Messege(){
         async function fetchMessege(){
 
             try{
-
                 //{eachUser: cada usuário, allMesseges: todas as mensagens}
                 const response = await api.get('/messege');
                 setMesseges(response.data);
@@ -60,7 +60,6 @@ export default function Messege(){
                 setLoading(false);
 
             }
-
         }
 
         fetchMessege();
@@ -76,6 +75,7 @@ export default function Messege(){
             const response = await api.post('/messege/send', data);
             setMensagem(response.data);
             setSend(prev => !prev);
+            setBody('');
 
         }catch(error){
 
@@ -85,15 +85,52 @@ export default function Messege(){
 
     }
 
+    async function deleteMessege(id){
+
+        const conf = Boolean(confirm("Deseja Eliminar Esta Mensagem?"));
+
+        if (conf){
+
+            try{
+                const response = await api.post(`messege/delete/${id}`);
+                setMensagem(response.data);
+                setSend(prev => !prev);
+
+            }catch(error){
+
+                console.log("Erro ao deletar mensagem: ",error.response.data);
+
+            }
+
+        }else{
+            
+            return;
+        }
+
+    }
+
     function getChat(id){
 
         const mensagens = messeges.allMessege.filter(mens => 
             mens.to_user_id == user.id && mens.from_user_id == id || 
             mens.to_user_id == id && mens.from_user_id == user.id);
-        const recep = mensagens.find(one => one.to_user.id == id);
-        setChats(mensagens);
-        setName(recep.to_user.first_name + " " + recep.to_user.last_name);
-        localStorage.setItem('recept', JSON.stringify(recep.to_user));
+        const recep = mensagens.find(one => one.to_user_id == id || one.from_user_id == id);
+        setChats(mensagens); console.log(mensagens); console.log(recep); console.log(id);
+
+        if (recep.to_user_id != user.id){
+
+            setName(recep.to_user.first_name + " " + recep.to_user.last_name);
+            
+            setToUserId(recep.to_user_id);
+            localStorage.setItem('recept', JSON.stringify(recep.to_user));
+
+        }else{
+
+            setName(recep.from_user.first_name + " " + recep.from_user.last_name);
+            
+            setToUserId(recep.from_user_id);
+            localStorage.setItem('recept', JSON.stringify(recep.to_user));
+        }
 
     }
 
@@ -104,11 +141,10 @@ export default function Messege(){
 
         const data = {
             from_user_id: user.id,
-            to_user_id: touser.id,
+            to_user_id: toUserId,
             body: body
         }
 
-        setBody('');
         sendMessege(data);
 
     }
@@ -167,15 +203,20 @@ export default function Messege(){
 
                             <div className="max-h-[45vh] w-full flex flex-col gap-3 overflow-y-scroll">
                                 {chats.map(chat => (
+                                    
                                     <div key={chat.id} className="min-w-[30%] h-auto bg-blue-500 rounded-lg p-3 self-start" id={chat.from_user_id == user.id ? "messegeBlue" : "messegeGray"}>
 
                                         <div className="w-full h-auto flex items-center gap-2 mb-2">
-                                            <span>{chat.body}</span>
+                                            <span>{!chat.delete ? chat.body : <p className="text-xl font-semibold text-gray-600"> <em>Mensagem Eliminada</em> </p>}</span>
                                         </div>
 
-                                        <div className="w-full text-end">
+                                        {!chat.delete ? 
+                                        <div className="w-full text-end flex justify-between mt-4">
+                                            <button onClick={() => deleteMessege(chat.id)}>
+                                                <abbr title="Excluir Mensagem" className="text-xl"><FaTrash /></abbr>
+                                            </button>
                                             <span>{format(new Date(chat.created_at), "dd/MM/yyyy HH:mm", { locale: pt })}</span>
-                                        </div>
+                                        </div> : ''}
 
                                     </div>
                                     

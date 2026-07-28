@@ -36,6 +36,8 @@ import MovimentoDetails from './pages/MovimentoDetails'
 import EditEmployeeDetails from './pages/EditEmployeeDetails'
 import EditSalario from './pages/EditSalario'
 import SenhaEdit from './pages/SenhaEdit'
+import Financeiro from './pages/Financeiro'
+import Liquidado from './pages/Liquidado'
 
 function Main(){
   return (
@@ -187,6 +189,8 @@ function App() {
         <Route path="/presencas/register" element={<PresencasRegist />} />
         <Route path="/funcoes/create" element={<FunCadastro onSubmit={createFun} />} />
         <Route path="/funcoes/edit/:id" element={<FunEdit />} />
+        <Route path="/financeiro" element={<Financeiro />} />
+        <Route path="/liquidado" element={<Liquidado />} />
       </Routes>
     </AuthProvider>
     

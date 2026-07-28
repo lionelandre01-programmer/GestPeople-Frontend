@@ -61,7 +61,7 @@ export default function Employees(){
                                     <li key={us.id} onClick={() => navegar(us.id)}>
                                         <Link className='flex'>{us.first_name} {us.last_name}
                                         <div className="flex-grow flex justify-evenly">{Array.from({ length: 6 }).map((_,i) => (<span key={i}>.</span>))}</div>
-                                        <span className="text-blue-600 font-bold flex-1">Função: {us.funcao.denominacao}</span></Link>
+                                        <span className="text-blue-600 font-bold flex-1">{us.funcao.denominacao}</span></Link>
                                     </li>
 
                                 ))

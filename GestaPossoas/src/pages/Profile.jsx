@@ -30,7 +30,7 @@ export default function Profile(props) {
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">Perfil do Usuário</h1>
           
-          <div className="bg-white rounded-lg shadow-md p-8 w-[40vw]">
+          <div className="bg-white rounded-lg shadow-md p-8 w-[45vw]">
             <div className="flex flex-col items-center mb-6 w-full item-center justify-center">
               {user.image ? 
               (<div className="w-40 h-40 rounded-full overflow-hidden border-2 border-gray-300 mb-4">

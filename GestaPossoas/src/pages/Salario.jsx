@@ -60,10 +60,10 @@ export default function Salario(){
                     <FaPlus />Add Salário
                 </Link>
 
-                <div className="w-[25%] h-[50vh] border-r-2 overflow-y-scroll">
+                <div className="w-[25%] h-[50vh] border-r-2 overflow-y-scroll flex flex-col">
 
                     {users.map(user => (
-                        <button key={user.id} className="py-1 text-center font-bold font-mono border-2 px-20 rounded-lg shrink-0 mb-2 text-xl" 
+                        <button key={user.id} className="py-1 text-center font-bold font-mono border-2 px-15 rounded-lg shrink-0 mb-2 text-xl items-stretch" 
                         onClick={() => naviga(user.id)}> {user.first_name} {user.last_name} </button>
                     ))
 

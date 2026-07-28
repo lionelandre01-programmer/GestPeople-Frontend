@@ -1,7 +1,7 @@
 import Back from "../components/Back";
 import '../app.css'
 import { Link } from "react-router-dom";
-import { FaBullseye, FaUserTie, FaExchangeAlt, FaLock, FaSearch } from "react-icons/fa";
+import { FaBullseye, FaUserTie, FaExchangeAlt, FaLock, FaSearch, FaMoneyBill } from "react-icons/fa";
 
 export default function Definicoes(){
 
@@ -35,8 +35,8 @@ export default function Definicoes(){
                 </div>
 
                 <div className="p-8 border border-gray-500 rounded-lg">
-                    <Link className="flex flex-col items-center">
-                        <FaBullseye /> Salário
+                    <Link to="/financeiro" className="flex flex-col items-center">
+                        <FaMoneyBill /> Controle Financeiro
                     </Link>
                 </div>
 
