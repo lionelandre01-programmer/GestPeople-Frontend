@@ -115,4 +115,4 @@ Desenvolvido Por Lionel Cristóvão André.
 
 **Status do Projeto**: Em desenvolvimento 🚧
 
-**Última atualização**: Maio de 2026
+**Última atualização**: Julho de 2026
